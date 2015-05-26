@@ -8,9 +8,9 @@ var router = express.Router();
 
 var connection = mysql.createConnection({
     host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'address_book'
+    user     : 'renatosvo',
+    password : 'hidrogenio',
+    database : 'mapeamentotwitter'
 });
 
 connection.connect(function(err){
@@ -22,15 +22,36 @@ connection.connect(function(err){
 });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    connection.query('SELECT * from user LIMIT 2', function(err, rows, fields) {
-        connection.end();
-        if (!err)
-            console.log('The solution is: ', rows);
-        else
-            console.log('Error while performing Query.');
+router.get('/total', function(req, res, next) {
+
+    //console.log(req.query.oi);
+    connection.query('select count(*) from tweets', function(err, rows, fields) {
+        if (!err) {
+            console.log(rows)
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+            error=true
+        }
     });
-    res.send("hello!")
+});
+
+router.get('/query', function(req, res, next) {
+    qtd = parseInt(req.query.amount);
+    page = parseInt(req.query.p)*qtd;
+    fields = [page,qtd];
+
+    //console.log(req.query.oi);
+    connection.query('select * from tweets limit ?,?',[page,qtd], function(err, rows, fields) {
+        if (!err) {
+            console.log(rows)
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
 });
 
 module.exports = router;
