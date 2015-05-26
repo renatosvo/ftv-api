@@ -26,25 +26,26 @@ connection.connect(function(err){
 
 
 var filter = function(req){
-    page = parseInt(req.query.p);
-    qtd  = parseInt(req.query.qtd);
+    page = (req.query.p) ? parseInt(req.query.p) :0;
+    qtd  = (req.query.qtd) ? parseInt(req.query.qtd) :99999999;
     minRet  = (req.query.minretweet) ? parseInt(req.query.minretweet) :0;
     maxRet = (req.query.maxretweet) ? parseInt(req.query.maxretweet) : 99999999;
 
-    console.log(minRet);
+    page *=qtd;
+    qtd+=page;
 
-
-
-    console.log(maxRet)
-
-    return under.filter(mock, function(value,key){
-        return minRet < value.retweets && value.retweets < maxRet;
+    arr = under.filter(mock, function(value,key){
+        return minRet <= value.retweets && value.retweets <= maxRet;
     });
+
+    return arr.slice(page,qtd);
+
 }
 
 /* GET home page. */
 router.get('/total',cors(), function(req, res, next) {
-    s ={total: mock.length}
+    s =filter(req);
+    s ={total : s.length};
     res.send(s)
 });
 
