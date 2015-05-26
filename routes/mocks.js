@@ -6,6 +6,7 @@ var mysql = require('mysql');
 var router = express.Router();
 var mock = require('./dataMock');
 var under = require('underscore');
+var cors = require('cors');
 
 
 var connection = mysql.createConnection({
@@ -27,7 +28,7 @@ connection.connect(function(err){
 var filter = function(req){
     page = parseInt(req.query.p);
     qtd  = parseInt(req.query.qtd);
-    minRet  = parseInt(req.query.minretweet );
+    minRet  = (req.query.minretweet) ? parseInt(req.query.minretweet) :0;
     maxRet = (req.query.maxretweet) ? parseInt(req.query.maxretweet) : 99999999;
 
     console.log(minRet);
@@ -42,12 +43,12 @@ var filter = function(req){
 }
 
 /* GET home page. */
-router.get('/total', function(req, res, next) {
+router.get('/total',cors(), function(req, res, next) {
     s ={total: mock.length}
     res.send(s)
 });
 
-router.get('/query', function(req, res, next) {
+router.get('/query',cors(), function(req, res, next) {
 
 
     res.send(filter(req));
