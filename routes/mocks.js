@@ -5,6 +5,8 @@ var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
 var mock = require('./dataMock');
+var umock = require('./usersMock');
+var dmock = require('./descritorMock');
 var under = require('underscore');
 var cors = require('cors');
 
@@ -40,19 +42,40 @@ var filter = function(req){
 
     return arr.slice(page,qtd);
 
-}
+};
 
-/* GET home page. */
-router.get('/total',cors(), function(req, res, next) {
+router.get('/tweets/total',cors(), function(req, res, next) {
     s =filter(req);
     s ={total : s.length};
     res.send(s)
 });
 
-router.get('/query',cors(), function(req, res, next) {
+router.get('/tweets/query',cors(), function(req, res, next) {
 
 
     res.send(filter(req));
+});
+
+router.get('/users/query',cors(), function(req, res, next) {
+    desc = req.query.desc;
+    if(!!!desc){
+        res.send(umock);
+        return;
+    }
+
+
+    arr = under.filter(dmock, function(value,key){
+        return value.descritor == desc;
+    });
+    desc = arr[0].id;
+    arr = under.filter(umock, function(value,key){
+        return value.descritor == desc;
+    });
+    res.send(arr);
+});
+
+router.get('/desc/query',cors(), function(req, res, next) {
+    res.send(dmock);
 });
 
 module.exports = router;

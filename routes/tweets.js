@@ -54,4 +54,30 @@ router.get('/query', function(req, res, next) {
     });
 });
 
+router.get('/query/users', function(req, res, next) {
+
+    connection.query('select * from contas ', function(err, rows, fields) {
+        if (!err) {
+            console.log(rows)
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/query/desc', function(req, res, next) {
+
+    connection.query('select * from descritores ', function(err, rows, fields) {
+        if (!err) {
+            console.log(rows)
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
 module.exports = router;
