@@ -1,0 +1,22 @@
+CREATE TABLE extras (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    	nome VARCHAR(255) NOT NULL,
+    	description VARCHAR(255) NOT NULL,
+    	url VARCHAR(255) NOT NULL,
+    	tema VARCHAR(255) NOT NULL,
+    	tag1 VARCHAR(255) NOT NULL,
+    	tag2 VARCHAR(255) NOT NULL,
+    	iniciativa VARCHAR(255) NOT NULL,
+    	produto VARCHAR(255) NOT NULL,
+    	fase VARCHAR(255) NOT NULL,
+    	protagonista boolean,
+    	bibliografia VARCHAR(255) NOT NULL,
+    	evidencias VARCHAR(255) NOT NULL,
+    	fonte VARCHAR(255) NOT NULL,
+    	pais VARCHAR(255) NOT NULL,
+    	cidade VARCHAR(255) NOT NULL,
+    	info_add VARCHAR(255) NOT NULL,
+    	dt_criação DATE,
+    	is_tweet BOOLEAN NOT NULL,
+    	id_tweet INT
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
