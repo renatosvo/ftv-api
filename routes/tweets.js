@@ -63,7 +63,7 @@ router.get('/users/query',cors(), function(req, res, next) {
 
 
 
-    connection.query("select distinct c.* from contas c inner join descritores d on c.descritor = d.id and d.descritor like '$?$'",desc, function(err, rows, fields) {
+    connection.query("select distinct c.* from contas c inner join descritores d on c.descritor = d.id and d.descritor like '$"+desc+"'$", function(err, rows, fields) {
         if (!err) {
             console.log(rows)
             res.send( rows);
