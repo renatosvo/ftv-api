@@ -9,9 +9,9 @@ var cors = require('cors');
 
 var connection = mysql.createConnection({
     host     : 'localhost',
-    user     : 'renatosvo',
-    password : 'hidrogenio',
-    database : 'mapeamentotwitter'
+    user     : 'b4aaa5a923988f',
+    password : '2f873075',
+    database : 'heroku_de1629e833c3cb8'
 });
 
 connection.connect(function(err){
