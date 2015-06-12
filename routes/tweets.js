@@ -7,11 +7,18 @@ var router = express.Router();
 var cors = require('cors');
 
 
-var connection = mysql.createConnection({
+/*var connection = mysql.createConnection({
     host     : 'us-cdbr-iron-east-02.cleardb.net',
     user     : 'b4aaa5a923988f',
     password : '2f873075',
     database : 'heroku_de1629e833c3cb8'
+});*/
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'renatosvo',
+    password : 'hidrogenio',
+    database : 'mapeamentotwitter'
 });
 
 connection.connect(function(err){
@@ -61,11 +68,8 @@ router.get('/tweets/query',cors(), function(req, res, next) {
 router.get('/users/query',cors(), function(req, res, next) {
     desc = (req.query.desc) ? req.query.desc :"";
 
-
-
-    connection.query("select distinct c.* from contas c inner join descritores d on c.descritor = d.id and d.descritor like '$"+desc+"'$", function(err, rows, fields) {
+    connection.query("select distinct c.* from contas c inner join descritores d on c.descritor = d.id and d.descritor like ?",desc, function(err, rows, fields) {
         if (!err) {
-            console.log(rows)
             res.send( rows);
         }else{
             res.send("Unable to connect");
