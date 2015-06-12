@@ -7,19 +7,19 @@ var router = express.Router();
 var cors = require('cors');
 
 
-/*var connection = mysql.createConnection({
+var connection = mysql.createConnection({
     host     : 'us-cdbr-iron-east-02.cleardb.net',
     user     : 'b4aaa5a923988f',
     password : '2f873075',
     database : 'heroku_de1629e833c3cb8'
-});*/
+});
 
-var connection = mysql.createConnection({
+/*var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'renatosvo',
     password : 'hidrogenio',
     database : 'mapeamentotwitter'
-});
+});*/
 
 connection.connect(function(err){
     if(!err) {
