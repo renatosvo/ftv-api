@@ -20,3 +20,26 @@ CREATE TABLE extras (
     	is_tweet BOOLEAN NOT NULL,
     	id_tweet INT
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+
+
+data = {
+  id: 1235,
+  nome: "Nome do sinal, digitado pelo usuário",
+  description: "Descrição ou conteúdo do sinal, também digitado pelo usuário",
+  url: "link digitado pelo usuário",
+  tema: "Ativismo e representação",
+  tag1: "Branded Government",
+  tag2: "Cybersecurity",
+  iniciativa: "Pública",
+  produto: "Texto digitado pelo usuário",
+  fase: "Teste de conceito",
+  protagonista: true,
+  bibliografia: "Livro",
+  evidencias: "Imprensa",
+  fonte: "Desk",
+  pais: "Brasil",
+  cidade: "Araçatuba",
+  info_add: "Informações adicionais digitadas pelo usuário",
+  is_tweet: false
+}
