@@ -8,7 +8,7 @@ var cors = require('cors');
 
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
+    host     : 'us-cdbr-iron-east-02.cleardb.net',
     user     : 'b4aaa5a923988f',
     password : '2f873075',
     database : 'heroku_de1629e833c3cb8'
