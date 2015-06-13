@@ -6,19 +6,19 @@ var router = express.Router();
 var cors = require('cors');
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
+/*var connection = mysql.createConnection({
     host     : 'us-cdbr-iron-east-02.cleardb.net',
     user     : 'b4aaa5a923988f',
     password : '2f873075',
     database : 'heroku_de1629e833c3cb8'
-});
+});*/
 
-/*var connection = mysql.createConnection({
+var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'renatosvo',
     password : 'hidrogenio',
     database : 'mapeamentotwitter'
-});*/
+});
 
 connection.connect(function(err){
     if(!err) {
@@ -91,7 +91,7 @@ router.get('/desc/query',cors(), function(req, res, next) {
 
 
 
-router.post('/add/extra',cors(), function(req, res, next) {
+router.post('/extra/add',cors(), function(req, res, next) {
 console.log("oi")
     var nome = (req.body.nome) ? req.body.nome : null;
     var description = (req.body.description) ? req.body.description : null;
@@ -130,5 +130,22 @@ console.log("oi")
     });
 });
 
+router.get('/extra/query',cors(), function(req, res, next) {
+    var id = (req.query.id) ? req.query.id : null;
+    var s = "";
+    if(id){
+        s = "where id_tweet = "+id
+    }
+    console.log(id)
+    connection.query('select * from extras '+s, function(err, rows, fields) {
+        if (!err) {
+            console.log(rows)
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
 
 module.exports = router;
