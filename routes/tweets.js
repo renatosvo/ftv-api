@@ -25,6 +25,7 @@ connection.connect(function(err){
         console.log("Database is connected ... \n\n");
     } else {
         console.log("Error connecting database ... \n\n");
+        console.log(err);
     }
 });
 
@@ -116,7 +117,6 @@ router.post('/extra/add',cors(), function(req, res, next) {
         produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet] ,function(err, result) {
 
         if (!err) {
-            console.log(result)
             res.send(result);
         }else{
             res.send("Unable to connect");
@@ -131,10 +131,15 @@ router.get('/extra/query',cors(), function(req, res, next) {
     if(id){
         s = "where id_tweet = "+id
     }
-    console.log(id)
-    connection.query('select * from extras '+s, function(err, rows, fields) {
+
+    page = (req.query.p) ? parseInt(req.query.p) :0;
+    qtd  = (req.query.qtd) ? parseInt(req.query.qtd) :99999999;
+
+    page *=qtd;
+    qtd+=page;
+
+    connection.query('select * from extras '+s+' limit ?,? ',[page, qtd], function(err, rows, fields) {
         if (!err) {
-            console.log(rows)
             res.send( rows);
         }else{
             res.send("Unable to connect");
