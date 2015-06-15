@@ -97,7 +97,7 @@ router.get('/desc/query',cors(), function(req, res, next) {
 
 router.post('/extra/add',cors(), function(req, res, next) {
     var nome = (req.body.nome) ? req.body.nome : null;
-    var description = (req.body.description) ? req.body.description : null;
+    var descricao = (req.body.descricao) ? req.body.descricao : null;
     var url = (req.body.url) ? req.body.url : null;
     var tema = (req.body.tema) ? req.body.tema : null;
     var tag1 = (req.body.tag1) ? req.body.tag1 : null;
@@ -117,7 +117,7 @@ router.post('/extra/add',cors(), function(req, res, next) {
     var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : null;
 
 
-    connection.query('Insert into formulario (nome, description, url, tema, tag1, tag2, iniciativa ,' +
+    connection.query('Insert into formulario (nome, descricao, url, tema, tag1, tag2, iniciativa ,' +
     ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criação, is_tweet, id_tweet)' +
     ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, description, url, tema, tag1, tag2, iniciativa,
         produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet] ,function(err, result) {
