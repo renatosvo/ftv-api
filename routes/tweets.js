@@ -10,9 +10,9 @@ var connection = mysql.createPool({
     connectionLimit : 10,
     canRetry: true,
     host     : 'us-cdbr-iron-east-02.cleardb.net',
-    user     : 'b4aaa5a923988f',
-    password : '2f873075',
-    database : 'heroku_de1629e833c3cb8'
+    user     : 'b464bb1b37dc8b',
+    password : '57eb9d9e',
+    database : 'heroku_97488853130fd46'
 });
 
 /*var connection = mysql.createPool({
@@ -70,7 +70,9 @@ router.get('/tweets/query',cors(), function(req, res, next) {
 router.get('/users/query',cors(), function(req, res, next) {
     desc = (req.query.desc) ? req.query.desc :"";
 
-    connection.query("select distinct c.* from contas c inner join descritores d on c.descritor = d.id and d.descritor like ?",desc, function(err, rows, fields) {
+    connection.query("select distinct t.nomeusuario as conta from tweets t " +
+    "inner join descritores d on t.idescritor = d.id and d.descritor " +
+    " like ? order by t.nomeusuario;",desc, function(err, rows, fields) {
         if (!err) {
             res.send( rows);
         }else{
@@ -115,7 +117,7 @@ router.post('/extra/add',cors(), function(req, res, next) {
     var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : null;
 
 
-    connection.query('Insert into extras (nome, description, url, tema, tag1, tag2, iniciativa ,' +
+    connection.query('Insert into formulario (nome, description, url, tema, tag1, tag2, iniciativa ,' +
     ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criação, is_tweet, id_tweet)' +
     ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, description, url, tema, tag1, tag2, iniciativa,
         produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet] ,function(err, result) {
@@ -142,7 +144,7 @@ router.get('/extra/query',cors(), function(req, res, next) {
     page *=qtd;
     qtd+=page;
 
-    connection.query('select * from extras '+s+' limit ?,? ',[page, qtd], function(err, rows, fields) {
+    connection.query('select * from formulario '+s+' limit ?,? ',[page, qtd], function(err, rows, fields) {
         if (!err) {
             res.send( rows);
         }else{
