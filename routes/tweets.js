@@ -190,15 +190,15 @@ router.post('/extra/add',cors(), function(req, res, next) {
     var pais = (req.body.pais) ? req.body.pais : null;
     var cidade = (req.body.cidade) ? req.body.cidade : null;
     var info_add = (req.body.info_add) ? req.body.info_add : null;
-    var dt_criaaoo = new Date();
+    var dt_criacao = new Date();
     var is_tweet = (req.body.is_tweet) ? !!req.body.is_tweet : null;
     var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : null;
 
 
     connection.query('Insert into formulario (nome, descricao, url, tema, tag1, tag2, iniciativa ,' +
-    ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criação, is_tweet, id_tweet, url_video)' +
+    ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criacao, is_tweet, id_tweet, url_video)' +
     ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, descricao, url, tema, tag1, tag2, iniciativa,
-        produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet,urlvideo] ,function(err, result) {
+        produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criacao, is_tweet, id_tweet,urlvideo] ,function(err, result) {
 
         if (!err) {
             res.send(result);
