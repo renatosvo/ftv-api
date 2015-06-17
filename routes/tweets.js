@@ -34,13 +34,9 @@ var connection = mysql.createPool({
 });*/
 
 router.get('/tweets/total',cors(), function(req, res, next) {
-    page = (req.query.p) ? parseInt(req.query.p) :0;
-    qtd  = (req.query.qtd) ? parseInt(req.query.qtd) :99999999;
     minRet  = (req.query.minretweet) ? parseInt(req.query.minretweet) :0;
     maxRet = (req.query.maxretweet) ? parseInt(req.query.maxretweet) : 99999999;
 
-    page *=qtd;
-    qtd+=page;
 
     connection.query('select count(*) from tweets t where t.retweets > ? and t.retweets < ? ',[minRet, maxRet], function(err, rows, fields) {
         if (!err) {
@@ -60,8 +56,8 @@ router.get('/tweets/query',cors(), function(req, res, next) {
     maxRet = (req.query.maxretweet) ? parseInt(req.query.maxretweet) : 99999999;
 
     page=qtd*page;
-
-    connection.query('select t.* from tweets t where t.retweets > ? and t.retweets < ? limit ? offset ?',[minRet, maxRet, qtd, page], function(err, rows, fields) {
+/*verificar se vai rolar group by ou nao do textos repetidos*/
+    connection.query('select t.* from tweets t where t.retweets > ? and t.retweets < ? group by t.texto limit ? offset ?',[minRet, maxRet, qtd, page], function(err, rows, fields) {
         if (!err) {
             res.send( rows);
         }else{
@@ -201,7 +197,7 @@ router.post('/extra/add',cors(), function(req, res, next) {
 
     connection.query('Insert into formulario (nome, descricao, url, tema, tag1, tag2, iniciativa ,' +
     ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criação, is_tweet, id_tweet, url_video)' +
-    ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, description, url, tema, tag1, tag2, iniciativa,
+    ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, descricao, url, tema, tag1, tag2, iniciativa,
         produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet,urlvideo] ,function(err, result) {
 
         if (!err) {
