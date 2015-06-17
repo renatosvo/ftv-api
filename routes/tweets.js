@@ -97,6 +97,83 @@ router.get('/desc/query',cors(), function(req, res, next) {
     });
 });
 
+router.get('/temas/query',cors(), function(req, res, next) {
+    connection.query('select * from temas ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/tags/query',cors(), function(req, res, next) {
+    connection.query('select * from tags ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/iniciativa/query',cors(), function(req, res, next) {
+    connection.query('select * from iniciativa ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/fase/query',cors(), function(req, res, next) {
+    connection.query('select * from fase ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/bibliografia/query',cors(), function(req, res, next) {
+    connection.query('select * from bibliografia ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/evidencia/query',cors(), function(req, res, next) {
+    connection.query('select * from evidencia ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+router.get('/fonte/query',cors(), function(req, res, next) {
+    connection.query('select * from fonte ', function(err, rows, fields) {
+        if (!err) {
+            res.send( rows);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
 
 
 router.post('/extra/add',cors(), function(req, res, next) {
