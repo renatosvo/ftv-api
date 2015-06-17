@@ -34,7 +34,15 @@ var connection = mysql.createPool({
 });*/
 
 router.get('/tweets/total',cors(), function(req, res, next) {
-    connection.query('select count(*) from tweets', function(err, rows, fields) {
+    page = (req.query.p) ? parseInt(req.query.p) :0;
+    qtd  = (req.query.qtd) ? parseInt(req.query.qtd) :99999999;
+    minRet  = (req.query.minretweet) ? parseInt(req.query.minretweet) :0;
+    maxRet = (req.query.maxretweet) ? parseInt(req.query.maxretweet) : 99999999;
+
+    page *=qtd;
+    qtd+=page;
+
+    connection.query('select count(*) from tweets t where t.retweets > ? and t.retweets < ? ',[minRet, maxRet], function(err, rows, fields) {
         if (!err) {
             res.send( rows);
         }else{
@@ -51,13 +59,9 @@ router.get('/tweets/query',cors(), function(req, res, next) {
     minRet  = (req.query.minretweet) ? parseInt(req.query.minretweet) :0;
     maxRet = (req.query.maxretweet) ? parseInt(req.query.maxretweet) : 99999999;
 
-    page *=qtd;
-    qtd+=page;
+    page=qtd*page;
 
-    fields = [minRet, maxRet, page, qtd];
-
-
-    connection.query('select t.* from tweets t where t.retweets > ? and t.retweets < ? limit ?,?',[minRet, maxRet, page, qtd], function(err, rows, fields) {
+    connection.query('select t.* from tweets t where t.retweets > ? and t.retweets < ? limit ? offset ?',[minRet, maxRet, qtd, page], function(err, rows, fields) {
         if (!err) {
             res.send( rows);
         }else{
@@ -99,6 +103,7 @@ router.post('/extra/add',cors(), function(req, res, next) {
     var nome = (req.body.nome) ? req.body.nome : null;
     var descricao = (req.body.descricao) ? req.body.descricao : null;
     var url = (req.body.url) ? req.body.url : null;
+    var urlvideo = (req.body.urlvideo) ? req.body.urlvideo : null;
     var tema = (req.body.tema) ? req.body.tema : null;
     var tag1 = (req.body.tag1) ? req.body.tag1 : null;
     var tag2 = (req.body.tag2) ? req.body.tag2 : null;
@@ -118,9 +123,9 @@ router.post('/extra/add',cors(), function(req, res, next) {
 
 
     connection.query('Insert into formulario (nome, descricao, url, tema, tag1, tag2, iniciativa ,' +
-    ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criação, is_tweet, id_tweet)' +
-    ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, description, url, tema, tag1, tag2, iniciativa,
-        produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet] ,function(err, result) {
+    ' produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criação, is_tweet, id_tweet, url_video)' +
+    ' values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[nome, description, url, tema, tag1, tag2, iniciativa,
+        produto, fase,protagonista, bibliografia , evidencias, fonte, pais, cidade,info_add, dt_criaaoo, is_tweet, id_tweet,urlvideo] ,function(err, result) {
 
         if (!err) {
             res.send(result);
