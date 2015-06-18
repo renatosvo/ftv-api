@@ -209,6 +209,62 @@ router.post('/extra/add',cors(), function(req, res, next) {
     });
 });
 
+router.post('/extra/update',cors(), function(req, res, next) {
+    var nome = (req.body.nome) ? req.body.nome : null;
+    var descricao = (req.body.descricao) ? req.body.descricao : null;
+    var url = (req.body.url) ? req.body.url : null;
+    var urlvideo = (req.body.urlvideo) ? req.body.urlvideo : null;
+    var tema = (req.body.tema) ? req.body.tema : null;
+    var tag1 = (req.body.tag1) ? req.body.tag1 : null;
+    var tag2 = (req.body.tag2) ? req.body.tag2 : null;
+    var iniciativa = (req.body.iniciativa) ? req.body.iniciativa : null;
+    var produto = (req.body.produto) ? req.body.produto : null;
+    var fase = (req.body.fase) ? req.body.fase : null;
+    var protagonista = (req.body.protagonista) ? !!req.body.protagonista : null;
+    var bibliografia = (req.body.bibliografia) ? req.body.bibliografia : null;
+    var evidencias = (req.body.evidencias) ? req.body.evidencias : null;
+    var fonte = (req.body.fonte) ? req.body.fonte : null;
+    var pais = (req.body.pais) ? req.body.pais : null;
+    var cidade = (req.body.cidade) ? req.body.cidade : null;
+    var info_add = (req.body.info_add) ? req.body.info_add : null;
+
+    var is_tweet = (req.body.is_tweet) ? !!req.body.is_tweet : null;
+    var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : null;
+    var id = (req.body.id) ? req.body.id : null;
+
+    connection.query('UPDATE formulario SET nome = ?, descricao = ?, url = ?, ' +
+    'tema = ?, tag1 = ?, tag2 = ?, iniciativa = ?, produto = ?, ' +
+    'fase = ?, protagonista = ?, bibliografia = ?, evidencias = ?, ' +
+    'fonte = ?, pais = ?, cidade = ?, info_add = ?, ' +
+    'is_tweet = ?, id_tweet = ?, url_video = ? WHERE id = ?',[nome, descricao, url, tema, tag1, tag2, iniciativa,
+        produto, fase,protagonista, bibliografia , evidencias,
+        fonte, pais, cidade,info_add, is_tweet, id_tweet,urlvideo, id] ,function(err, result) {
+
+        if (!err) {
+            res.send(result);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+
+router.get('/extra/remove',cors(), function(req, res, next) {
+    var id = (req.query.id) ? req.query.id : null;
+
+
+    connection.query('delete from formulario where id = ?',id ,function(err, result) {
+        if (!err) {
+            res.send(result);
+        }else{
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+
 router.get('/extra/query',cors(), function(req, res, next) {
     var id = (req.query.id) ? req.query.id : null;
     var s = "";
