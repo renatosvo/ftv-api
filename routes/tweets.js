@@ -183,7 +183,7 @@ router.post('/extra/add',cors(), function(req, res, next) {
     var iniciativa = (req.body.iniciativa) ? req.body.iniciativa : null;
     var produto = (req.body.produto) ? req.body.produto : null;
     var fase = (req.body.fase) ? req.body.fase : null;
-    var protagonista = (req.body.protagonista) ? !!req.body.protagonista : false;
+    var protagonista = (req.body.protagonista) ? req.body.protagonista : false;
     var bibliografia = (req.body.bibliografia) ? req.body.bibliografia : null;
     var evidencias = (req.body.evidencias) ? req.body.evidencias : null;
     var fonte = (req.body.fonte) ? req.body.fonte : null;
@@ -191,8 +191,8 @@ router.post('/extra/add',cors(), function(req, res, next) {
     var cidade = (req.body.cidade) ? req.body.cidade : null;
     var info_add = (req.body.info_add) ? req.body.info_add : null;
     var dt_criacao = new Date();
-    var is_tweet = (req.body.is_tweet) ? !!req.body.is_tweet : false;
-    var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : false;
+    var is_tweet = (req.body.is_tweet) ? req.body.is_tweet : false;
+    var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : null;
 
 
     connection.query('Insert into formulario (nome, descricao, url, tema, tag1, tag2, iniciativa ,' +
@@ -220,16 +220,16 @@ router.post('/extra/update',cors(), function(req, res, next) {
     var iniciativa = (req.body.iniciativa) ? req.body.iniciativa : null;
     var produto = (req.body.produto) ? req.body.produto : null;
     var fase = (req.body.fase) ? req.body.fase : null;
-    var protagonista = (req.body.protagonista) ? !!req.body.protagonista : null;
+    var protagonista = (req.body.protagonista) ? req.body.protagonista : false;
     var bibliografia = (req.body.bibliografia) ? req.body.bibliografia : null;
     var evidencias = (req.body.evidencias) ? req.body.evidencias : null;
     var fonte = (req.body.fonte) ? req.body.fonte : null;
     var pais = (req.body.pais) ? req.body.pais : null;
     var cidade = (req.body.cidade) ? req.body.cidade : null;
     var info_add = (req.body.info_add) ? req.body.info_add : null;
-
-    var is_tweet = (req.body.is_tweet) ? !!req.body.is_tweet : null;
+    var is_tweet = (req.body.is_tweet) ? req.body.is_tweet : false;
     var id_tweet = (req.body.id_tweet) ? req.body.id_tweet : null;
+    var dt_atualizacao = new Date();
     var id = (req.body.id) ? req.body.id : null;
 
     connection.query('UPDATE formulario SET nome = ?, descricao = ?, url = ?, ' +
