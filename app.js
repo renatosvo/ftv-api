@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/users', users);
 //app.use('/', tweets);
 app.use('/', api);
+
 //app.use('/mocks', mocks);
 
 // catch 404 and forward to error handler
