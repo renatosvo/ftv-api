@@ -1,5 +1,5 @@
 /**
- * Created by renat on 25/05/2015.
+ * Created by renato on 25/05/2015.
  */
 var express = require('express');
 var router = express.Router();
@@ -9,29 +9,11 @@ var mysql = require('mysql');
 var connection = mysql.createPool({
     connectionLimit : 10,
     canRetry: true,
-    host     : 'us-cdbr-iron-east-02.cleardb.net',
-    user     : 'b464bb1b37dc8b',
-    password : '57eb9d9e',
-    database : 'heroku_97488853130fd46'
-});
-
-/*var connection = mysql.createPool({
-    connectionLimit : 10,
-    canRetry: true,
     host     : 'localhost',
-    user     : 'renatosvo',
-    password : 'hidrogenio',
-    database : 'mapeamentotwitter'
-});*/
-
-/*connection.connect(function(err){
-    if(!err) {
-        console.log("Database is connected ... \n\n");
-    } else {
-        console.log("Error connecting database ... \n\n");
-        console.log(err);
-    }
-});*/
+    user     : 'admin',
+    password : 'admin',
+    database : 'my-db'
+});
 
 router.get('/tweets/total',cors(), function(req, res, next) {
     minRet  = (req.query.minretweet) ? parseInt(req.query.minretweet) :0;
