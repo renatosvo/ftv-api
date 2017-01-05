@@ -5,6 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
+//CORS middleware
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  next();
+};
+
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
 var tweets = require('./routes/tweets');
@@ -23,10 +34,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(allowCrossDomain);
+
+
 //app.use('/', routes);
 //app.use('/users', users);
-//app.use('/', tweets);
-app.use('/', api);
+app.use('/', tweets);
+//app.use('/', api);
 
 //app.use('/mocks', mocks);
 

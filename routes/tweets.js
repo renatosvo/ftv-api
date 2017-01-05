@@ -10,9 +10,9 @@ var connection = mysql.createPool({
     connectionLimit : 10,
     canRetry: true,
     host     : 'localhost',
-    user     : 'admin',
-    password : 'admin',
-    database : 'my-db'
+    user     : 'renatosvo',
+    password : 'hidrogenio',
+    database : 'signals'
 });
 
 router.get('/tweets/total',cors(), function(req, res, next) {
@@ -269,5 +269,65 @@ router.get('/extra/query',cors(), function(req, res, next) {
         }
     });
 });
+
+
+var corsOptions = {
+    "origin": '*',
+    "Access-Control-Allow-Methods" : 'GET,PUT,POST,DELETE,OPTIONS'
+    //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+router.delete('/v1/descritores',cors(corsOptions), function(req, res, next) {
+    var descritorId = (req.body.id) ? parseInt(req.body.id) : null;
+
+    connection.query('DELETE FROM `signals`.`descritores` WHERE id = ?',[descritorId], function(err, rows, fields) {
+        if (!err) {
+	    res.statusCode=200;
+            res.send();
+        }else{
+	    res.statusCode=400;
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+//Atualiza descritor
+router.post('/v1/descritores',cors(corsOptions), function(req, res, next) {
+
+    var descritorId = (req.body.id) ? parseInt(req.body.id) : null;
+    var valor = (req.body.valor) ? req.body.valor :null;
+
+    console.log(descritorId,valor, req.body);
+
+    connection.query("UPDATE `signals`.`descritores` SET `descritor` = ? WHERE `id` = ?",[valor,descritorId], function(err, rows, fields) {
+        if (!err) {
+            res.statusCode=200;
+            res.send();
+        }else{
+	    res.statusCode=400;
+            res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+//Insere Descritor
+router.put('/v1/descritores',cors(corsOptions), function(req, res, next) {
+    var valor= (req.body.valor) ? req.body.valor :"";
+
+    connection.query("INSERT INTO `signals`.`descritores` (`descritor`) VALUES (?); ",[valor], function(err, rows, fields) {
+        if (!err) {
+            res.statusCode=200;
+            res.send();
+        }else{
+            res.statusCode=400;
+		res.send("Unable to connect");
+            console.error('Error while performing Query.',err);
+        }
+    });
+});
+
+
 
 module.exports = router;

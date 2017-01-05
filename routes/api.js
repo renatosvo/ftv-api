@@ -12,7 +12,7 @@ var connection = mysql.createPool({
     host     : 'localhost',
     user     : 'renatosvo',
     password : 'hidrogenio',
-    database : 'mapeamentotwitter'
+    database : 'signals'
 });
 
 router.get('/todolists',cors(), function(req, res, next) {
